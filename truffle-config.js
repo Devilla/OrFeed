@@ -1,8 +1,6 @@
-import HDWalletProvider from 'truffle-hdwallet-provider';
-import Web3 from "web3";
+const Web3 = require("web3");
 const web3 = new Web3();
-
-import { readFileSync } from 'fs';
+const { readFileSync } = require('fs');
 // the mnemonic phrase to an account with some ETH in the respective network
 const mnemonic = readFileSync(".secret").toString().trim();
 
@@ -10,8 +8,10 @@ const mnemonic = readFileSync(".secret").toString().trim();
 const mainnetInfuraProjectID = "fj4jll3k.....";
 const kovanInfuraProjectID = "fj4jll3k.....";
 const rinkebyInfuraProjectID = "fj4jll3k.....";
+const HDWalletProvider = require('truffle-hdwallet-provider');
 
-export const networks = {
+networks = {
+
   mainnet: {
     provider: function () {
       return new HDWalletProvider(mnemonic, `https://mainnet.infura.io/${mainnetInfuraProjectID}`);
@@ -32,10 +32,16 @@ export const networks = {
     },
     gasPrice: web3.utils.toWei('10', 'gwei'),
     network_id: 4
-  }
+  },
+  development: {
+    host: process.env.TRUFFLE_DEVELOP_HOST || 'localhost',
+    port: process.env.TRUFFLE_DEVELOP_PORT || 7545,
+    gasPrice: web3.utils.toWei('10', 'gwei'),
+    network_id: '*' // Match any network id
+  },
 };
-export const compilers = {
+compilers = {
   solc: {
-    version: '0.4.26'
+    version: '0.5.16'
   }
 };

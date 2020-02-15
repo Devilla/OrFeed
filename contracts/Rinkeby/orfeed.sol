@@ -1,7 +1,7 @@
 //0xb215bf00e18825667f696833d13368092cf62e66
 //orfeed.org oracle aggregator
 
-pragma solidity ^ 0.4 .26;
+pragma solidity ^0.5.16;
 
 interface IKyberNetworkProxy {
     function maxGasPrice() external view returns(uint);
